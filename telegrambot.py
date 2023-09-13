@@ -28,7 +28,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return await update.message.reply_text('Таны telegram username байхгүй байна. Та өөрийн telegram username-г '
                                                'тохируулаад ашиглана уу. /start')
 
-    response = requests.get(f'https://mma-service.onrender.com/user/username/{username}')
+    response = requests.get(f'http://54.199.215.22:3000/user/username/{username}')
     print(response.text)
 
     if response.status_code == 200:
@@ -42,7 +42,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "telegramName": username,
                 "chatId": chat_id
             }
-            response_user_add = requests.post('https://mma-service.onrender.com/user', json=json_data)
+            response_user_add = requests.post('http://54.199.215.22:3000/user', json=json_data)
             if response.status_code == 200:
                 print("POST request successful!")
                 print(response_user_add.json)
@@ -67,7 +67,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def expire_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.message.chat.id
     print(chat_id)
-    response = requests.get(f'https://mma-service.onrender.com/user/chatId/{chat_id}')
+    response = requests.get(f'http://54.199.215.22:3000/user/chatId/{chat_id}')
     print(response.text)
     if response.status_code == 200:
         if 'endDate' in response.text:
@@ -90,7 +90,7 @@ async def payment_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return await update.message.reply_text('Таны telegram username байхгүй байна. Та өөрийн telegram username-г '
                                                'тохируулаад ашиглана уу. /start')
 
-    response = requests.get(f'https://mma-service.onrender.com/user/username/{username}')
+    response = requests.get(f'http://54.199.215.22:3000/user/username/{username}')
     print(response.text)
 
     if response.status_code == 200:
@@ -115,7 +115,7 @@ async def handle_button_press(update: Update, context):
 
     if query.data == 'button_extension_data':
         print('button_extension_data')
-        response = requests.get(f'https://mma-service.onrender.com/product/chatid/{chat_id}')
+        response = requests.get(f'http://54.199.215.22:3000/product/chatid/{chat_id}')
         if response.status_code == 200:
             data = response.text
             product_data['product'] = response.text
@@ -139,7 +139,7 @@ async def handle_button_press(update: Update, context):
         if 'product' in product_data:
             product = product_data['product']
         else:
-            response = requests.get(f'https://mma-service.onrender.com/product/chatid/{chat_id}')
+            response = requests.get(f'http://54.199.215.22:3000/product/chatid/{chat_id}')
             if response.status_code == 200:
                 product = response.text
 
@@ -151,7 +151,7 @@ async def handle_button_press(update: Update, context):
         print(chat_id)
 
         response = requests.post(
-            f'https://mma-service.onrender.com/create-invoice/{chat_id}/{product_id}')
+            f'http://54.199.215.22:3000/create-invoice/{chat_id}/{product_id}')
 
         response_data_invoice = json.loads(response.text)
         print(response_data_invoice['data']['qrLink'])
