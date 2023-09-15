@@ -7,13 +7,11 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 import requests
 import json
 import re
-from decouple import Config, Csv
+from decouple import config
 
-config = Config()
-
-YOUR_API_URL = config.get("YOUR_API_URL")
-YOUR_BOT_TOKEN = config.get("YOUR_BOT_TOKEN")
-YOUR_BOT_USERNAME = config.get("YOUR_BOT_USERNAME")
+YOUR_API_URL = config("YOUR_API_URL")
+YOUR_BOT_TOKEN = config("YOUR_BOT_TOKEN")
+YOUR_BOT_USERNAME = config("YOUR_BOT_USERNAME")
 
 print('Starting up bot...')
 
